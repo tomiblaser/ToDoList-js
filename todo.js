@@ -1,22 +1,38 @@
 let listatarea=[]
-let idlista = 1
+let idlista = 0
 let ObtenerElemento = (tareaLista) =>{
-    let tarea=(document.getElementById(tareaLista).value)
-    listatarea.push(tarea)
-    let lista=document.getElementById('lista')
-    if(tarea!==''){
-        lista.innerHTML+=`<li><input type="checkbox" id=${idlista}>${tarea}</input></li>`
+    let label=(document.getElementById(tareaLista).value)
+    if(label!==''){
+        let tareaClass= new Tarea(label, idlista)
+        listatarea.push(tareaClass)
+        listarTareas(listatarea)
         idlista++
     }else{
-        alert("Por favor, ingrese algo.")
+        alert("Por favor, ingrese algo.");
     }
 }
-let estaok = (idlista) =>{
-    for(idlista=1; idlista++)
-    {
-        if( $('#idlista').is(':checked') ) {
-            alert('checkbox1 esta Seleccionado');
-        }
-    }
 
+let listarTareas = (listatarea) =>{
+
+    let lista=document.getElementById('lista')
+    lista.innerHTML = " "
+    listatarea.map(tarea=>lista.innerHTML+=`<li><input type="checkbox" class="${tarea.completado && "tachado"}" onChange="buscarYMarcar(${tarea.id})" id=${tarea.id}></input><p>${tarea.label}</p></li>`)
+}
+
+class Tarea {
+    constructor(label, id){
+        this.label=label,
+        this.completado=false,
+        this.id=id
+    }
+    marcarCompletado(){
+        this.completado= !this.completado
+        listarTareas()
+    }
+}
+
+let buscarYMarcar = (idPasado) => {
+    const tareaMarcar = listatarea.find(tarea => tarea.id === idPasado)
+    tareaMarcar.completado = true
+    listarTareas(listatarea)
 }
