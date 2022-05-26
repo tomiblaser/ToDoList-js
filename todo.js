@@ -1,38 +1,32 @@
 let listatarea=[]
-let idlista = 0
-let ObtenerElemento = (tareaLista) =>{
-    let label=(document.getElementById(tareaLista).value)
-    if(label!==''){
-        let tareaClass= new Tarea(label, idlista)
-        listatarea.push(tareaClass)
-        listarTareas(listatarea)
-        idlista++
+let ultimo = 0
+
+let ObtenerElemento=(titulo) => {
+    let tarea={
+        id: ultimo,
+        titulo:titulo,
+        status:false
+    }
+    if(tarea.titulo!=''){
+        listatarea.push(tarea);
+        let ul=document.getElementById("lista");
+        ul.innerHTML+=`<li><input type="checkbox" id="${ultimo}" onclick=marcar(id)><h10> ${titulo} </h10></input></li>`
+        ultimo++;
     }else{
-        alert("Por favor, ingrese algo.");
+        alert('Por favor, ingrese algo');
     }
+    
 }
 
-let listarTareas = (listatarea) =>{
+let marcar = (id) => {
+    listatarea[id].estado = true;
+    refrescar();
+}
 
+refrescar = () =>{
     let lista=document.getElementById('lista')
-    lista.innerHTML = " "
-    listatarea.map(tarea=>lista.innerHTML+=`<li><input type="checkbox" class="${tarea.completado && "tachado"}" onChange="buscarYMarcar(${tarea.id})" id=${tarea.id}></input><p>${tarea.label}</p></li>`)
-}
-
-class Tarea {
-    constructor(label, id){
-        this.label=label,
-        this.completado=false,
-        this.id=id
+    lista.innerHTML+=``
+    for(i=0; i<idlista+1; i++){
+        lista.innerHTML+=`<li><input type="checkbox" id=${listatarea[idlista].id} style="text-decoration: line-through">${listatarea[idlista].titulo}</input></li>`
     }
-    marcarCompletado(){
-        this.completado= !this.completado
-        listarTareas()
-    }
-}
-
-let buscarYMarcar = (idPasado) => {
-    const tareaMarcar = listatarea.find(tarea => tarea.id === idPasado)
-    tareaMarcar.completado = true
-    listarTareas(listatarea)
 }
