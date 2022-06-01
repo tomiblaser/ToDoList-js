@@ -8,11 +8,11 @@ let clase = ''
 let ObtenerElemento=(titulo) => {
     
     let tarea={
-        id: ultimo,
-        titulo:titulo,
-        status:false
+    id: ultimo,
+    titulo:titulo,
+    status:false
     }
-
+    
     if(tarea.titulo!=''){
         listatarea.push(tarea);
         let ul=document.getElementById("lista");
@@ -27,17 +27,16 @@ let ObtenerElemento=(titulo) => {
 
 let marcar = (id) => {
     listatarea[id].status = true;
+    document.getElementById("lista").innerHTML="";
     
-    if(listatarea[id].status === true)
-    {
-        clase='tachado'
         for(i=0; i<=ultimo; i++)
         {
-            if(listatarea.[id].status===true){
+            if(listatarea[id].status===true){
 
-                ul.innerHTML=`<input type="checkbox" id="${id}"><h10 class=${clase}> ${listatarea[id].titulo} </h10></input>`
+                document.getElementById("lista").innerHTML+=`<input type="checkbox" id="${id}"><h10 style="text-decoration: line-through;"> ${listatarea[id].titulo} </h10></input>`
                 console.log(tarea)
+            }else{
+                document.getElementById("lista").innerHTML+=`<input type="checkbox" id="${id}"><h10> ${listatarea[id].titulo} </h10></input>`
             }
         }
-    }
 }
