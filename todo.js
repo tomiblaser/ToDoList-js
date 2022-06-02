@@ -16,9 +16,10 @@ let ObtenerElemento=(titulo) => {
     if(tarea.titulo!=''){
         listatarea.push(tarea);
         let ul=document.getElementById("lista");
-        ul.innerHTML+=`<li><input type="checkbox" id="${ultimo}" onclick=marcar(id)><h10 class=${clase}> ${titulo} </h10></input></li>`
-        console.log(tarea)
+        ul.innerHTML+=`<li><input type="checkbox" id="${ultimo}" onclick=marcar(id)><h6 class=${clase}> ${titulo} </h6></input></li>`
         ultimo++;
+        console.log(tarea, ultimo)
+        document.getElementById('tareaa').value='';
     }else{
         alert('Por favor, ingrese algo');
     }
@@ -26,17 +27,16 @@ let ObtenerElemento=(titulo) => {
 }
 
 let marcar = (id) => {
-    listatarea[id].status = true;
+    listatarea[id].status = !listatarea[id].status;
     document.getElementById("lista").innerHTML="";
     
-        for(i=0; i<=ultimo; i++)
+        for(let i=0; i<ultimo; i++)
         {
-            if(listatarea[id].status===true){
-
-                document.getElementById("lista").innerHTML+=`<input type="checkbox" id="${id}"><h10 style="text-decoration: line-through;"> ${listatarea[id].titulo} </h10></input>`
-                console.log(tarea)
+            console.log(listatarea[i], ultimo )
+            if(listatarea[i].status===true){
+                document.getElementById("lista").innerHTML+=`<input type="checkbox" id="${i}" onclick=marcar(id)><h6 style="text-decoration: line-through;"> ${listatarea[i].titulo} </h6></input>`
             }else{
-                document.getElementById("lista").innerHTML+=`<input type="checkbox" id="${id}"><h10> ${listatarea[id].titulo} </h10></input>`
+                document.getElementById("lista").innerHTML+=`<input type="checkbox" id="${i}" onclick=marcar(id)><h6> ${listatarea[i].titulo} </h6></input>`
             }
         }
 }
